@@ -18,6 +18,8 @@ for (const width of [320, 1339, 1340, 1341, 1440, 1920, 2136]) {
           ? parseFloat(styles.gridTemplateColumns.split(" ")[0])
           : layout.clientWidth;
       return {
+        mainWidth: document.querySelector<HTMLElement>("main")!.clientWidth,
+        layoutWidth: layout.clientWidth,
         available,
         wrapperWidth: wrapper.clientWidth,
         proseWidth: prose.clientWidth,
@@ -32,6 +34,7 @@ for (const width of [320, 1339, 1340, 1341, 1440, 1920, 2136]) {
     expect(evidence.wrapperWidth).toBeGreaterThanOrEqual(
       evidence.available - 2,
     );
+    expect(evidence.layoutWidth).toBeGreaterThanOrEqual(evidence.mainWidth - 2);
     expect(evidence.pageOverflow).toBe(false);
     if (width >= 1920)
       expect(evidence.scrollWidth).toBeLessThanOrEqual(
