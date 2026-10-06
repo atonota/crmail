@@ -1,0 +1,100 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { loadDocuments } from "../site/documents.mjs";
+const documents = loadDocuments();
+const phases = documents.filter((doc) => doc.category === "phases");
+const groups = [...new Set(documents.map((doc) => doc.group))];
+---
+
+<Layout>
+  <section class="hero">
+    <p class="eyebrow">FİZİBİLİTE / MİMARİ / YOL HARİTASI</p>
+    <h1>
+      Tekliften e-postaya,
+      <br />
+      <em>tek bir çalışma akışı.</em>
+    </h1>
+    <p class="hero-description">
+      Crmail; Frappe CRM üzerinde teklif oluşturma, marka şablonlarını görsel
+      olarak düzenleme ve kurumsal e-posta iletimi için hazırlanan araştırma ve
+      geliştirme çerçevesi.
+    </p>
+    <div class="hero-meta">
+      <span>{documents.length} belge</span>
+      <span>8 geliştirme seviyesi</span>
+      <span>6 Ekim 2026</span>
+    </div>
+    <a class="primary-link" href="#library">
+      Araştırmayı incele <span aria-hidden="true">→</span>
+    </a>
+  </section>
+  <section class="scope-note">
+    <strong>Bu teslim bir araştırma ve planlama çalışmasıdır.</strong>
+    <p>
+      Frappe ürünü, SMTP gönderimi ve GrapesJS editörü henüz geliştirilmiş
+      değildir. Ürün görsel tasarımı öneriler içerir; performans hedefleri
+      ölçülmüş sonuçlardan ayrılır.
+    </p>
+  </section>
+  <section
+    class="architecture-overview"
+    aria-label="Önerilen teknoloji sınırları"
+  >
+    <p class="eyebrow">ÖNERİLEN SİSTEM</p>
+    <div>
+      <span>
+        Astro + Mantine<small>Kullanıcı deneyimi</small>
+      </span>
+      <span>
+        GrapesJS / MJML<small>Görsel e-posta editörü</small>
+      </span>
+      <span>
+        Frappe + CRM<small>Headless iş kuralları</small>
+      </span>
+    </div>
+  </section>
+  {phases.length > 0 && (
+    <section class="phase-section">
+      <div class="section-heading">
+        <p class="eyebrow">FAZ FAZ İLERLEME</p>
+        <h2>Her aşama bir karar kapısı.</h2>
+      </div>
+      <ol class="phase-list">
+        {phases.map((phase, index) => (
+          <li>
+            <a href={phase.href}>
+              <span class="phase-number">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <strong>{phase.title}</strong>
+              <span aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
+  <section id="library" class="library">
+    <div class="section-heading">
+      <p class="eyebrow">ARAŞTIRMA KÜTÜPHANESİ</p>
+      <h2>Kararların dayanağı.</h2>
+    </div>
+    {groups.map((group) => (
+      <section class="library-group">
+        <h3>{group}</h3>
+        <ul>
+          {documents
+            .filter((doc) => doc.group === group)
+            .map((doc) => (
+              <li>
+                <a href={doc.href}>
+                  {doc.title}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </li>
+            ))}
+        </ul>
+      </section>
+    ))}
+  </section>
+</Layout>

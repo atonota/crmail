@@ -1,0 +1,43 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { loadDocuments, documentHeadings } from "../../site/documents.mjs";
+export function getStaticPaths() {
+  return loadDocuments().map((document) => ({
+    params: { slug: document.slug },
+    props: { document },
+  }));
+}
+const { document } = Astro.props;
+const headings = documentHeadings(document.content).filter(
+  (heading) => heading.depth === 2,
+);
+---
+
+<Layout title={document.title} active={document.slug}>
+  <div class="document-meta">
+    <a href="/crmail/">Genel bakış</a>
+    <span aria-hidden="true">/</span>
+    <span>{document.group}</span>
+  </div>
+  <div class="document-layout">
+    <article class="prose" set:html={document.html} />
+    {headings.length > 0 && (
+      <nav class="toc" aria-label="Bu belgede">
+        <p class="eyebrow">BU BELGEDE</p>
+        <ul>
+          {headings.map((heading) => (
+            <li>
+              <a href={`#${heading.id}`}>{heading.text}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )}
+  </div>
+  <div class="document-source">
+    <span>Kaynak: {document.file}</span>
+    <a href={`https://github.com/atonota/crmail/blob/main/${document.file}`}>
+      Markdown belgesini aç
+    </a>
+  </div>
+</Layout>

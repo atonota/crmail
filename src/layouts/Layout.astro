@@ -1,0 +1,114 @@
+---
+import "@mantine/core/styles.layer.css";
+import "../styles/global.css";
+import Controls from "../components/Controls";
+import { Image } from "astro:assets";
+import logo from "../assets/atonota-logo.png";
+import { tokenCss } from "../styles/tokens";
+import { loadDocuments } from "../site/documents.mjs";
+const { title = "Crmail", active = "" } = Astro.props;
+const documents = loadDocuments();
+const groups = [...new Set(documents.map((doc) => doc.group))];
+---
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="AtonotA Crmail: headless Frappe CRM, teklif ve kurumsal e-posta için araştırma, mimari ve fazlara ayrılmış yol haritası."
+    />
+    <title>{title} · Crmail / AtonotA</title>
+    <style is:inline set:html={tokenCss} />
+    <link rel="icon" href="/crmail/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="canonical"
+      href={new URL(Astro.url.pathname, "https://atonota.github.io")}
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      İçeriğe geç
+    </a>
+    <header class="site-header">
+      <a class="brand" href="/crmail/" aria-label="Crmail ana sayfa">
+        <Image
+          src={logo}
+          width={104}
+          height={104}
+          format="webp"
+          quality={90}
+          style="width:52px;height:52px"
+          alt="AtonotA"
+          loading="eager"
+        />
+        <span>
+          <strong>crmail</strong>
+          <small>AtonotA araştırma dosyası</small>
+        </span>
+      </a>
+      <Controls client:load />
+    </header>
+    <div class="site-layout">
+      <aside class="sidebar">
+        <details class="navigation">
+          <summary>Belge rehberi</summary>
+          <nav aria-label="Araştırma belgeleri">
+            <a
+              class:list={["nav-home", { selected: active === "" }]}
+              href="/crmail/"
+            >
+              Genel bakış
+            </a>
+            {groups.map((group) => (
+              <section class="nav-group">
+                <h2>{group}</h2>
+                <ul>
+                  {documents
+                    .filter((doc) => doc.group === group)
+                    .map((doc) => (
+                      <li>
+                        <a
+                          href={doc.href}
+                          aria-current={
+                            active === doc.slug ? "page" : undefined
+                          }
+                        >
+                          {doc.title}
+                        </a>
+                      </li>
+                    ))}
+                </ul>
+              </section>
+            ))}
+          </nav>
+        </details>
+        <p class="nav-note">
+          Public dokümantasyon.
+          <br />
+          Ürün ve gönderim altyapısı ayrı.
+        </p>
+      </aside>
+      <main id="main" tabindex="-1">
+        <slot />
+      </main>
+    </div>
+    <footer class="site-footer">
+      <span>AtonotA · Intelligence in Balance</span>
+      <a href="https://github.com/atonota/crmail">
+        Kaynak belgeler ve sürüm geçmişi
+      </a>
+    </footer>
+    <noscript>
+      <p class="noscript-note">
+        Arama JavaScript gerektirir. Tüm belgelere rehberdeki bağlantılar
+        üzerinden erişebilirsiniz.
+      </p>
+    </noscript>
+  </body>
+</html>
