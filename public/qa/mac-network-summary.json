@@ -1,0 +1,226 @@
+{
+  "scope": "documentation site, macOS headless, 320 CSS px home to PoC navigation",
+  "date": "2026-10-06",
+  "result": "60 passed; 48 behaviour and 12 screenshot comparisons",
+  "units": "decoded response body bytes across two navigations; not wire transfer or field CWV",
+  "engines": {
+    "chromium": {
+      "responses": [
+        {
+          "url": "/crmail/",
+          "bytes": 29309,
+          "status": 200
+        },
+        {
+          "url": "/crmail/_astro/atonota-logo.C76oZTeU_ZsFQGd.webp",
+          "bytes": 2508,
+          "status": 200
+        },
+        {
+          "url": "/crmail/_astro/Layout.B73G4mlb.css",
+          "bytes": 258592,
+          "status": 200
+        },
+        {
+          "url": "/crmail/_astro/Controls.BS8lFpV4.js",
+          "bytes": 148360,
+          "status": 200
+        },
+        {
+          "url": "/crmail/_astro/client.D92qSjCW.js",
+          "bytes": 209158,
+          "status": 200
+        },
+        {
+          "url": "/crmail/_astro/react-dom.DwX89IcG.js",
+          "bytes": 12201,
+          "status": 200
+        },
+        {
+          "url": "/crmail/favicon.svg",
+          "bytes": 262,
+          "status": 200
+        },
+        {
+          "url": "/crmail/_astro/Layout.B73G4mlb.css",
+          "bytes": 0,
+          "status": 304
+        },
+        {
+          "url": "/crmail/_astro/atonota-logo.C76oZTeU_ZsFQGd.webp",
+          "bytes": 0,
+          "status": 304
+        },
+        {
+          "url": "/crmail/docs/phases/01-poc/",
+          "bytes": 30956,
+          "status": 200
+        },
+        {
+          "url": "/crmail/_astro/Controls.BS8lFpV4.js",
+          "bytes": 0,
+          "status": 304
+        },
+        {
+          "url": "/crmail/_astro/client.D92qSjCW.js",
+          "bytes": 0,
+          "status": 304
+        },
+        {
+          "url": "/crmail/_astro/react-dom.DwX89IcG.js",
+          "bytes": 0,
+          "status": 304
+        },
+        {
+          "url": "/crmail/favicon.svg",
+          "bytes": 262,
+          "status": 200
+        }
+      ],
+      "count": 14,
+      "totalDecodedBytes": 691608
+    },
+    "firefox": {
+      "responses": [
+        {
+          "url": "/crmail/",
+          "bytes": 29309,
+          "status": 200
+        },
+        {
+          "url": "/crmail/_astro/Layout.B73G4mlb.css",
+          "bytes": 258592,
+          "status": 200
+        },
+        {
+          "url": "/crmail/_astro/atonota-logo.C76oZTeU_ZsFQGd.webp",
+          "bytes": 2508,
+          "status": 200
+        },
+        {
+          "url": "/crmail/_astro/Controls.BS8lFpV4.js",
+          "bytes": 148360,
+          "status": 200
+        },
+        {
+          "url": "/crmail/_astro/client.D92qSjCW.js",
+          "bytes": 209158,
+          "status": 200
+        },
+        {
+          "url": "/crmail/favicon.svg",
+          "bytes": 262,
+          "status": 200
+        },
+        {
+          "url": "/crmail/_astro/react-dom.DwX89IcG.js",
+          "bytes": 12201,
+          "status": 200
+        },
+        {
+          "url": "/crmail/docs/phases/01-poc/",
+          "bytes": 30956,
+          "status": 200
+        },
+        {
+          "url": "/crmail/_astro/Layout.B73G4mlb.css",
+          "bytes": 0,
+          "status": 304
+        },
+        {
+          "url": "/crmail/_astro/atonota-logo.C76oZTeU_ZsFQGd.webp",
+          "bytes": 0,
+          "status": 304
+        },
+        {
+          "url": "/crmail/_astro/Controls.BS8lFpV4.js",
+          "bytes": 0,
+          "status": 304
+        },
+        {
+          "url": "/crmail/_astro/client.D92qSjCW.js",
+          "bytes": 0,
+          "status": 304
+        },
+        {
+          "url": "/crmail/favicon.svg",
+          "bytes": 262,
+          "status": 200
+        },
+        {
+          "url": "/crmail/_astro/react-dom.DwX89IcG.js",
+          "bytes": 0,
+          "status": 304
+        }
+      ],
+      "count": 14,
+      "totalDecodedBytes": 691608
+    },
+    "webkit": {
+      "responses": [
+        {
+          "url": "/crmail/",
+          "bytes": 29309,
+          "status": 200
+        },
+        {
+          "url": "/crmail/_astro/atonota-logo.C76oZTeU_ZsFQGd.webp",
+          "bytes": 2508,
+          "status": 200
+        },
+        {
+          "url": "/crmail/_astro/Layout.B73G4mlb.css",
+          "bytes": 258592,
+          "status": 200
+        },
+        {
+          "url": "/crmail/_astro/Controls.BS8lFpV4.js",
+          "bytes": 148360,
+          "status": 200
+        },
+        {
+          "url": "/crmail/_astro/client.D92qSjCW.js",
+          "bytes": 209158,
+          "status": 200
+        },
+        {
+          "url": "/crmail/_astro/react-dom.DwX89IcG.js",
+          "bytes": 12201,
+          "status": 200
+        },
+        {
+          "url": "/crmail/_astro/Layout.B73G4mlb.css",
+          "bytes": 0,
+          "status": 304
+        },
+        {
+          "url": "/crmail/docs/phases/01-poc/",
+          "bytes": 30956,
+          "status": 200
+        },
+        {
+          "url": "/crmail/_astro/atonota-logo.C76oZTeU_ZsFQGd.webp",
+          "bytes": 0,
+          "status": 304
+        },
+        {
+          "url": "/crmail/_astro/Controls.BS8lFpV4.js",
+          "bytes": 0,
+          "status": 304
+        },
+        {
+          "url": "/crmail/_astro/client.D92qSjCW.js",
+          "bytes": 0,
+          "status": 304
+        },
+        {
+          "url": "/crmail/_astro/react-dom.DwX89IcG.js",
+          "bytes": 0,
+          "status": 304
+        }
+      ],
+      "count": 12,
+      "totalDecodedBytes": 691084
+    }
+  }
+}
