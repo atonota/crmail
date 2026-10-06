@@ -47,3 +47,17 @@ test("visual search landscape", async ({ page }) => {
     maxDiffPixels: 0,
   });
 });
+
+for (const width of [320, 768]) {
+  test(`visual model table ${width}`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/crmail/docs/architecture/backend-doctypes/");
+    await expect(
+      page.getByRole("button", { name: "Belgelerde ara" }),
+    ).toBeEnabled();
+    await expect(page.locator(".table-scroll").nth(1)).toHaveScreenshot(
+      `model-table-${width}.png`,
+      { maxDiffPixels: 0 },
+    );
+  });
+}

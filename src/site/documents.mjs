@@ -73,6 +73,7 @@ export function renderDocument(markdown, current, slugs) {
       return `<h${depth} id="${escape(id)}">${this.parser.parseInline(tokens)}</h${depth}>`;
     },
     table(token) {
+      // Keep keyboard access without JS; enhancement removes non-overflow tab stops.
       return `<section class="table-scroll" aria-label="Karşılaştırma tablosu" tabindex="0">${Renderer.prototype.table.call(this, token)}</section>`;
     },
   });

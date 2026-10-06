@@ -59,3 +59,15 @@ Response body boyutu decoded byte'tır; gzip hesaplaması, wire transfer veya fi
 ## Public ortamda erken hydration tıklaması
 
 Public smoke sırasında kaynaklar HTTP200 ve JS error listesi boş olmasına rağmen SSR arama düğmesine hydration öncesi tıklama kayboluyordu. JS dosyalarını bekleten regresyon eski kaynakta RED oldu. SSR'de native disabled/aria-busy, React mount sonrasında enabled durumu ile düzeltildi; hazır görünüm ve mevcut başlangıç PNG'leri değişmedi. Son macOS koşusu 63 pass (51 davranış, 12 görsel), 28,3 saniye. Snapshot güncellemesi kullanılmadı. Düzeltme bağımsız salt okunur kaynak incelemesinde açık bulgu olmadan kabul edildi; yeni CI sonucu eski `18ae992` koşusundan ayrı GitHub Actions history'de izlenir.
+
+## Odak, akışkan tablo ve minimum 1rem güncellemesi
+
+Bu bölüm önceki teslimin kayıtlarından ayrıdır. Dört global yönerge dosyasında ve proje `AGENT.md`, `AGENTS.md`, `CLAUDE.md` dosyalarında odak, tablo ve minimum metin kabul kriterleri bulunur. Kök boyut `100%`; bütün metin tokenları en az `1rem`, Mantine boyutları bu tokenlara bağlıdır. Dar alanda metin küçültülmez. Tablo `overflow-wrap: normal`, `word-break: normal` ve içerik sütunu minimumlarıyla kendi bölgesinde kayar.
+
+İlk hedef regresyonları küçük metni ve dar sütunu yakaladı. Sonrasında 78 davranış vaka geçti; 18 görsel vaka eski tipografi referansı veya yeni tablo referansı nedeniyle fail oldu. Üç motorda 320/768 tablo, 320/1440 ana sayfa, 320 belge ve yatay arama için before/after/diff kanıtları bağımsız salt okunur incelemede değerlendirildi. Yalnız bu 18 macOS aday kabul edildi; baseline kabulü tek başına karşılaştırma başarısı değildir. Linux referansları ayrıca incelenir.
+
+Yeni kontroller 320, 360, 375, 390, 768 ve 1440 genişliklerinde gerçek uzun model adlarını, hesaplanmış metin boyutlarını, doğal sarımı ve sayfa taşmasını ölçer. Fare/touch emülasyonu sonrası çerçeve yokluğu, Tab/Shift+Tab odağı, yatay oklarla kaydırma, büyüyen alan sonrası gereksiz Tab durağının kalkması ve modifier kısayollarının engellenmemesi kontrol edilir. Kök metin 20 px olduğunda tablo, navigasyon ve açılan arama metinleri en az bu boyutta kalır.
+
+JavaScript açıkken yalnız taşan tablo odaklanabilir; ResizeObserver içerik ve alan değişimlerini izler. JS kapalıyken SSR `tabindex=0` klavyeyle odak erişimini korur. No-JS testi odak erişimini doğrular; özellikle WebKit'te JS kapalı yatay ok kaydırma **not_run** olarak kalır. Touch emülasyonu ve wheel testi fiziksel parmak sürüklemesi testi değildir. Gerçek Safari, fiziksel iOS/Android, gerçek zoom, sanal klavye ve ekran okuyucu **not_run**; WebKit emülasyonu bunların yerine geçmez.
+
+Son yerel güncelleme koşusu: **105 pass, 37,6 saniye** (87 davranış, 18 görsel karşılaştırma), snapshot update bayrağı kullanılmadı. 6 unit pass; Astro check 17 dosya, sıfır error/warning/hint; format, production build, 29 rota iç link kontrolü ve `git diff --check` pass. Modifier fixture başlangıçta geniş ekranda taşmayan bölgeyi seçtiği için başarısızdı; doğru 320 px senaryosu ile düzeltildi, üretim kontrolü zayıflatılmadı. Linux CI ve public smoke ayrı doğrulanır.
