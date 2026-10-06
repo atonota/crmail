@@ -73,3 +73,13 @@ JavaScript açıkken yalnız taşan tablo odaklanabilir; ResizeObserver içerik 
 Son yerel güncelleme koşusu: **105 pass, 37,6 saniye** (87 davranış, 18 görsel karşılaştırma), snapshot update bayrağı kullanılmadı. 6 unit pass; Astro check 17 dosya, sıfır error/warning/hint; format, production build, 29 rota iç link kontrolü ve `git diff --check` pass. Modifier fixture başlangıçta geniş ekranda taşmayan bölgeyi seçtiği için başarısızdı; doğru 320 px senaryosu ile düzeltildi, üretim kontrolü zayıflatılmadı. Linux CI ve public smoke ayrı doğrulanır.
 
 Linux ilk güncelleme koşusu [37506354368](https://github.com/atonota/crmail/actions/runs/37506354368): 87 davranış pass; 18 eski/eksik görsel referans fail; deploy çalışmadı. Gerçek artefaktlardaki 18 Linux aday ve 12 mevcut before/after/diff bağımsız incelendi, açık actionable bulgu kalmadı. Bu 18 aday kabul edildi; başarısız koşu başarıya çevrilmedi. Sonraki CI, update bayrağı olmadan gerçek karşılaştırma yapar.
+
+## Kullanılabilir tablo alanı regresyonu
+
+Paragraf okuma genişliği üst `.prose` kapsayıcısına uygulanıyordu; geniş desktop grid alanı varken tablolar yaklaşık 694 px kapsayıcıya sıkışıyordu. `max-width` yalnız doğrudan metin bloklarına taşındı; tablolar ve kod blokları ayrılan içerik sütununu kullanır. TOC/sidebar alanları ve dar ekran yatay kaydırması korunur.
+
+`tests/table-space.spec.ts` gerçek karar matrisiyle 320, 1339/1340/1341, 1440, 1920, 2136 px genişliklerinde kapsayıcı alanı ile ayrılan grid alanını karşılaştırır. 1920/2136 örneklerinde gereksiz yatay kaydırma bulunmaması da ölçülür. İlk Chromium koşusu 6 fail/1 pass ile hatayı yakaladı. Düzeltme sonrası 21 yeni üç motor kontrolü pass; toplam 123 pass ve yalnız 6 değişen/eksik görsel referans fail. Bu ilk aday koşusu başarılı görsel karşılaştırma veya deploy olarak sunulmaz. Yeni geniş karar matrisi ve değişen 768 px model tablosu adayları bağımsız incelenir; diğer 15 mevcut karşılaştırma pass oldu.
+
+Proje AGENT/AGENTS/CLAUDE yönergelerine okuma genişliği ile veri alanını ayırma ve boş alan kullanımını ölçme kriterleri eklendi. Bu yönergeler tek başına yaptırım değildir; gerçek regresyon testi mevcut üç motorlu CI yayınına bağlıdır. Fiziksel cihaz/Safari doğrulama sınırları önceki bölümlerdeki gibi kalır.
+
+Son yerel alan düzeltmesi koşusu **129 pass, 44,2 saniye**: 108 davranış ve 21 görsel karşılaştırma, update bayrağı olmadan. Eski geniş ekran hatası ve üç motordaki 6 değişen/yeni macOS aday bağımsız incelendi; açık actionable bulgu kalmadı. Yalnız bu 6 referans değiştirildi. Unit 6, Astro 18 dosya (sıfır error/warning/hint), format, production build, 29 rota iç link ve diff whitespace kontrolü pass. Linux ve canlı yayın kontrolü ayrıdır.

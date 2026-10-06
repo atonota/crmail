@@ -72,6 +72,13 @@ Kaydırılabilir tablo klavyeyle odaklanmayı gerektiriyorsa, yalnızca klavye o
 - 320, 360, 375, 390 px, tablet ve masaüstünde; açılan panel, form ve hata durumları dahil hesaplanmış yazı boyutları doğrulanmalıdır. Kullanıcının kök yazı boyutunu büyütmesi ve zoom okunabilirliği veya işlevi bozmamalıdır.
 
 
+### Okuma genişliği ile veri alanını ayırma
+
+- Paragraf satır uzunluğu sınırı üst içerik kapsayıcısını, tabloları, kod bloklarını veya veri görselleştirmelerini daraltmamalıdır. Okuma genişliği yalnız metin bloklarına uygulanmalıdır.
+- Tablo, navigasyon ve belge içi rehber ayrıldıktan sonra kalan içerik sütununun tamamını kullanmalıdır. Sağda kullanılabilir içerik alanı varken gereksiz yatay kaydırma oluşturulmamalıdır.
+- Yatay kaydırma, tablonun okunabilir minimum genişliği gerçek kullanılabilir alana sığmadığında kullanılmalıdır; metin küçültülmemeli veya sözcükler parçalanmamalıdır.
+- Regresyon kontrolü yalnız sayfa taşmasını değil, tablo kapsayıcısının ayrılan grid/flex alanını kullanmasını da ölçmelidir. Gerçek geniş tabloyla 320 px, ilgili breakpoint N−1/N/N+1 ve 1440/1920/2136 px örnekleri doğrulanmalıdır.
+
 ## Komutlar
 
 - Kurulum: `pnpm install --frozen-lockfile`.

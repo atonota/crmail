@@ -396,9 +396,11 @@
     min-width: 0;
   }
   .prose {
-    max-width: var(--reading-width);
     min-width: 0;
     overflow-wrap: anywhere;
+  }
+  .prose > :not(.table-scroll):not(pre) {
+    max-width: var(--reading-width);
   }
   .prose h1 {
     font-size: var(--font-title);

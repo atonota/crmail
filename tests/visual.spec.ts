@@ -14,6 +14,17 @@ for (const width of [320, 1440]) {
   });
 }
 
+test("visual decision table uses wide document space", async ({ page }) => {
+  await page.setViewportSize({ width: 2136, height: 1000 });
+  await page.goto("/crmail/docs/architecture/decisions/");
+  await expect(
+    page.getByRole("button", { name: "Belgelerde ara" }),
+  ).toBeEnabled();
+  await expect(page).toHaveScreenshot("decision-table-wide.png", {
+    maxDiffPixels: 0,
+  });
+});
+
 test("visual document 320", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 740 });
   await page.goto("/crmail/");
