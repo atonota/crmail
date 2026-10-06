@@ -22,7 +22,7 @@ Yeni site tek akışkan kabuk kullanır. 320, 360, 375, 390, 879/880/881, 1339/1
 | İç linkler | pass | Üretilmiş rota dosyaları; ayrıca relative `.md` ve yerel fragment taraması |
 | Dependency audit | pass | Sharp 0.35.5 güncellemesi sonrası production advisory sayısı sıfır; mutlak güvenlik iddiası değildir |
 | Üç motor davranış QA | pass | 48 vaka: nonempty request/response gözlemi, tüm 28 belge rotası, genişlik/giriş/arama kontrolleri; 26,7 saniyelik son 60 vaka koşusu içinde |
-| macOS görsel regresyon / bağımsız inceleme | pass | 12 greenfield aday bağımsız salt okunur incelemede kabul edildi; 12 karşılaştırma `maxDiffPixels: 0` ile geçti. Linux referansları ayrı doğrulanacak |
+| macOS görsel regresyon / bağımsız inceleme | pass | 12 greenfield aday bağımsız salt okunur incelemede kabul edildi; 12 karşılaştırma `maxDiffPixels: 0` ile geçti. 12 Linux başlangıç adayı da bağımsız incelemede kabul edildi; gerçek CI karşılaştırması ayrı kaydedilir |
 | GitHub Actions / Pages | pending | Workflow dosyası varlığı gerçek run/deploy başarısı sayılmaz |
 | Fiziksel iOS/Android/macOS Safari | not_run | GUI kullanıcıya ayrıldı; headless emülasyon gerçek cihaz sertifikasyonu değildir |
 | Ekran okuyucu / sanal klavye / gerçek zoom | not_run | DOM/ARIA ve klavye kontrolleri tam erişilebilirlik sertifikası değildir |
@@ -45,3 +45,7 @@ Response body boyutu decoded byte'tır; gzip hesaplaması, wire transfer veya fi
 ## Görsel referans protokolü
 
 `tests/visual.spec.ts` üç motorda 320px ana sayfa, 1440px ana sayfa, 320px faz belgesi ve 740×320 arama durumunu karşılaştırır. Yeni referanslar önce bağımsız incelenir; mevcut referanslar topluca veya sessizce güncellenmez. İlk missing-reference koşusu başarısızdır ve yalnız aday üretir; sonraki karşılaştırma sonucu başarı kanıtıdır. Mantine açılış animasyonunda opacity/transform kararlı durumunu beklemek, henüz 44px'e ulaşmamış ölçeklenmiş hedefi doğru ölçmek için gereklidir. Geometri assertion toleransı küçültülmedi. CI/Linux ilk referansları Linux artefaktlarından ayrıca incelenir; macOS görüntüleri Linux karşılığı sayılmaz.
+
+## Linux başlangıç incelemesi
+
+[İlk CI koşusu](https://github.com/atonota/crmail/actions/runs/37484669313): unit/type/format/build/link ve 48 davranış vaka geçti. 12 görsel vaka eksik Linux referansı nedeniyle fail oldu; deploy bu durumda durduruldu. `browser-qa` artefaktındaki 12 gerçek aday bağımsız salt okunur incelemede kabul edildi; kaynak referanslar ayrıca eklendi. Bu ilk koşu başarılı deploy veya görsel karşılaştırma kanıtı değildir. Sonraki koşu güncelleme seçeneği kullanmadan karşılaştırma yapar.
