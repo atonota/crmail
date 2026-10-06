@@ -508,6 +508,10 @@
     color: var(--accent);
     font-size: var(--font-small);
   }
+  .search-trigger:disabled {
+    color: var(--text-secondary);
+    background: var(--surface);
+  }
   .search-modal {
     background: var(--surface-raised);
     border-radius: var(--radius);

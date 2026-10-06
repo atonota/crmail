@@ -7,7 +7,7 @@ for (const width of [320, 1440]) {
     await page.goto("/crmail/");
     await expect(
       page.getByRole("button", { name: "Belgelerde ara" }),
-    ).toBeVisible();
+    ).toBeEnabled();
     await expect(page).toHaveScreenshot(`home-${width}.png`, {
       maxDiffPixels: 0,
     });
@@ -19,6 +19,9 @@ test("visual document 320", async ({ page }) => {
   await page.goto("/crmail/");
   await page.locator(".phase-list a").first().click();
   await expect(page.locator(".prose h1")).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Belgelerde ara" }),
+  ).toBeEnabled();
   await expect(page).toHaveScreenshot("document-320.png", { maxDiffPixels: 0 });
 });
 

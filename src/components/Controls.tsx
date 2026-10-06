@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   MantineProvider,
@@ -21,6 +21,10 @@ type SearchDocument = {
   text: string;
 };
 function Search() {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    setReady(true);
+  }, []);
   const [opened, setOpened] = useState(false);
   const [term, setTerm] = useState("");
   const { data, isPending, isError, refetch } = useQuery<SearchDocument[]>({
@@ -47,6 +51,8 @@ function Search() {
       <Button
         variant="subtle"
         className="search-trigger"
+        disabled={!ready}
+        aria-busy={!ready}
         onClick={() => setOpened(true)}
       >
         Belgelerde ara

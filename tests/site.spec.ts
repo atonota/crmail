@@ -232,3 +232,28 @@ test("search controls have labelled touch targets", async ({ page }) => {
     expect(box?.width).toBeGreaterThanOrEqual(44);
   }
 });
+
+test("search cannot lose an early click while its scripts hydrate", async ({
+  page,
+}) => {
+  let release!: () => void;
+  const ready = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  await page.route("**/_astro/*.js", async (route) => {
+    await ready;
+    await route.continue();
+  });
+  try {
+    await page.goto("/crmail/", { waitUntil: "domcontentloaded" });
+    await expect(
+      page.getByRole("button", { name: "Belgelerde ara" }),
+    ).toBeDisabled();
+  } finally {
+    release();
+  }
+  const search = page.getByRole("button", { name: "Belgelerde ara" });
+  await expect(search).toBeEnabled();
+  await search.click();
+  await expect(page.getByLabel("Kelime veya konu")).toBeVisible();
+});

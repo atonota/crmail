@@ -21,7 +21,7 @@ Yeni site tek akışkan kabuk kullanır. 320, 360, 375, 390, 879/880/881, 1339/1
 | Format / production build | pass | Sabit manifest/lock ve statik `/crmail/` çıktısı |
 | İç linkler | pass | Üretilmiş rota dosyaları; ayrıca relative `.md` ve yerel fragment taraması |
 | Dependency audit | pass | Sharp 0.35.5 güncellemesi sonrası production advisory sayısı sıfır; mutlak güvenlik iddiası değildir |
-| Üç motor davranış QA | pass | 48 vaka: nonempty request/response gözlemi, tüm 28 belge rotası, genişlik/giriş/arama kontrolleri; 26,7 saniyelik son 60 vaka koşusu içinde |
+| Üç motor davranış QA | pass | 51 vaka: nonempty request/response gözlemi, tüm 28 belge rotası, genişlik/giriş/arama kontrolleri; 28,3 saniyelik son 63 vaka koşusu içinde |
 | macOS görsel regresyon / bağımsız inceleme | pass | 12 greenfield aday bağımsız salt okunur incelemede kabul edildi; 12 karşılaştırma `maxDiffPixels: 0` ile geçti. 12 Linux başlangıç adayı da bağımsız incelemede kabul edildi; gerçek CI karşılaştırması ayrı kaydedilir |
 | GitHub Actions / Pages | pass | `18ae992` için [CI koşusu](https://github.com/atonota/crmail/actions/runs/37489753491): 60 vaka, build ve deploy success. Bu kayıt yeni commitlerdeki kontrolün yerine geçmez |
 | Fiziksel iOS/Android/macOS Safari | not_run | GUI kullanıcıya ayrıldı; headless emülasyon gerçek cihaz sertifikasyonu değildir |
@@ -54,4 +54,8 @@ Response body boyutu decoded byte'tır; gzip hesaplaması, wire transfer veya fi
 
 `18ae992` source commit için [ikinci CI koşusu](https://github.com/atonota/crmail/actions/runs/37489753491) başarılıdır: unit/type/format/build/link, 48 davranış ve 12 Linux görsel karşılaştırması; Pages deploy success. Snapshot update seçeneği kullanılmadı. macOS ve Linux 12'şer başlangıç PNG'si ayrı bağımsız incelemede kabul edildi. İnceleme kaynaklar, lock/peer kanıtları, mobil/kısa yükseklik görselleri ve bildirilen kontrol sonuçlarını kapsadı; açık actionable bulgu kalmadı. İnceleyici komut çalıştırmadı veya dosya değiştirmedi.
 
-[macOS network kanıtı](https://atonota.github.io/crmail/qa/mac-network-summary.json): 320 px ana sayfa → PoC belgesi iki navigation toplamı Chromium/Firefox 14 response ve 691.608 decoded byte; WebKit 12 response ve 691.084 decoded byte. Bunlar ilk sayfa transfer bütçesi değildir. 60 vaka başarı kaydı ve göreli asset URL'leri içerir; raw oturum, müşteri veya secret içermez. Güncel commit doğrulaması GitHub Actions history'den kontrol edilmelidir.
+[macOS network kanıtı](https://atonota.github.io/crmail/qa/mac-network-summary.json): 320 px ana sayfa → PoC belgesi iki navigation toplamı Chromium/Firefox 14 response ve 691.842 decoded byte; WebKit 12 response ve 691.318 decoded byte. Bunlar ilk sayfa transfer bütçesi değildir. 63 vaka başarı kaydı ve göreli asset URL'leri içerir; raw oturum, müşteri veya secret içermez. Güncel commit doğrulaması GitHub Actions history'den kontrol edilmelidir.
+
+## Public ortamda erken hydration tıklaması
+
+Public smoke sırasında kaynaklar HTTP200 ve JS error listesi boş olmasına rağmen SSR arama düğmesine hydration öncesi tıklama kayboluyordu. JS dosyalarını bekleten regresyon eski kaynakta RED oldu. SSR'de native disabled/aria-busy, React mount sonrasında enabled durumu ile düzeltildi; hazır görünüm ve mevcut başlangıç PNG'leri değişmedi. Son macOS koşusu 63 pass (51 davranış, 12 görsel), 28,3 saniye. Snapshot güncellemesi kullanılmadı. Düzeltme bağımsız salt okunur kaynak incelemesinde açık bulgu olmadan kabul edildi; yeni CI sonucu eski `18ae992` koşusundan ayrı GitHub Actions history'de izlenir.

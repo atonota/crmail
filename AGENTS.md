@@ -39,6 +39,7 @@ Bu aşama kaynaklı araştırma, fizibilite, UX, mimari ve sekiz fazlık yol har
 - Kurulum: `pnpm install --frozen-lockfile`.
 - Kontroller: `pnpm test`, `pnpm check` (Astro/TypeScript), `pnpm format:check`.
 - Üretim: `pnpm build`, `pnpm check:links`.
+- Astro SSR interaktif kontrolü event handler hazır olmadan kullanılabilir gösterme; native disabled/aria-busy ile hydration sınırını koru. Geciktirilmiş JS regresyonunu koru; statik gezinme JS gerektirmez.
 - Görsel referanslar `tests/visual.spec.ts-snapshots/` içinde motor/platform bazında ayrılır; yeni/değişen adayları bağımsız incele, mevcut görselleri topluca güncelleme.
 - Tarayıcı: `pnpm test:browser`; izole test preview 127.0.0.1:45873. Config yeni browser download yapmaz; CI Playwright exact sürümüyle binaries kurar. Mevcut yerel executable env override varsayılan CI kapsamını değiştirmez.
 - Dev/preview: `pnpm dev`, `pnpm preview --port 4321`; yalnız loopback.
